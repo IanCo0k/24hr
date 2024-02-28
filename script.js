@@ -67,14 +67,31 @@ document.addEventListener('DOMContentLoaded', async function() {
         .then(data => {
             // Signup successful, fetch signups again and update UI
             fetchSignupsAndRender();
+            // Display success alert
+            displayAlert('Entry added successfully', 'green');
         })
         .catch(error => {
             // Signup failed, handle error
             console.error(error);
+            // Display error alert
+            displayAlert('Failed to add entry', 'red');
         });
 
         // Reset form fields
         this.reset();
+    }
+
+    // Function to display an alert
+    function displayAlert(message, color) {
+        const alertDiv = document.createElement('div');
+        alertDiv.classList.add('alert');
+        alertDiv.style.backgroundColor = color;
+        alertDiv.textContent = message;
+        document.getElementById('alerts').appendChild(alertDiv);
+        // Remove the alert after a certain time
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3000);
     }
 
     // Add event listener to form submission
